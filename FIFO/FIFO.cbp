@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="FIFO.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
