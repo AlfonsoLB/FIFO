@@ -29,7 +29,7 @@ public:
 
     // Methods
     void push(T data);
-    //T pop();
+    T pop();
 };
 
 template <typename T>
@@ -38,7 +38,7 @@ void FIFO<T>::push(T data) {
     Node<T>* node = Node<T>::createNode(data);
 
     if (first == NULL) {
-        first = last = NULL;
+        first = last = node;
     } else {
         node->n = first;
         first->p = node;
@@ -48,8 +48,51 @@ void FIFO<T>::push(T data) {
     sizeQueue++;
 }
 
+template <typename T>
+T FIFO<T>::pop() {
+    if (first == NULL) {
+        cout << "FIFO is empty" << endl;
+        return NULL;
+    } else {
+        Node<T>* temp = last;
+        T data = last->data;
+        last = last->p;
+
+        if (last == NULL)
+            first = NULL;
+        else
+            last->n = NULL;
+
+        free(temp);
+        sizeQueue--;
+
+        return data;
+    }
+}
+
 int main () {
     FIFO<int> f;
-    cout << "Number five inserted" << endl;
+    cout << "Number 5 inserted" << endl;
     f.push(5);
+    cout << "Number 6 inserted" << endl;
+    f.push(6);
+    cout << "Number 7 inserted" << endl;
+    f.push(7);
+    cout << "Number 8 inserted" << endl;
+    f.push(8);
+
+    cout << "Number " << f.pop() << " extracted" << endl;
+    cout << "Number " << f.pop() << " extracted" << endl;
+    cout << "Number " << f.pop() << " extracted" << endl;
+
+    cout << "Number 9 inserted" << endl;
+    f.push(9);
+    cout << "Number 10 inserted" << endl;
+    f.push(10);
+
+
+    cout << "Number " << f.pop() << " extracted" << endl;
+    cout << "Number " << f.pop() << " extracted" << endl;
+    cout << "Number " << f.pop() << " extracted" << endl;
+    cout << "Number " << f.pop() << " extracted" << endl;
 }
